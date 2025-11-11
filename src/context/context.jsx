@@ -16,13 +16,18 @@ const ContextProvider = (props) => {
         setShowResult(true);
         
         let response;
-        if (prompt !== undefined) {
-            response = await runChat(prompt);
-            setRecentPrompt(prompt);
-        } else {
-            setPrevPrompts(prev => [...prev, input]);
-            setRecentPrompt(input);
-            response = await runChat(input);
+        try {
+            if (prompt !== undefined) {
+                response = await runChat(prompt);
+                setRecentPrompt(prompt);
+            } else {
+                setPrevPrompts(prev => [...prev, input]);
+                setRecentPrompt(input);
+                response = await runChat(input);
+            }
+        } catch (error) {
+            console.error("Error in onSent:", error);
+            response = "Sorry, there was an error processing your request.";
         }
         
         setLoading(false);
