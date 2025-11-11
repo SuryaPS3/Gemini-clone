@@ -9,6 +9,7 @@ const ContextProvider = (props) => {
     const [showResult, setShowResult] = useState(false);
     const [loading, setLoading] = useState(false);
     const [resultData, setResultData] = useState("");
+    const [conversationHistory, setConversationHistory] = useState([]);
 
     const delayPara = (index, nextWord)=>{
         setTimeout(function (){
@@ -20,16 +21,17 @@ const ContextProvider = (props) => {
         setResultData("");
         setLoading(true);
         setShowResult(true);
-        setPrevPrompts(prev => [...prev, input]);
+        
         let response;
         try {
             if (prompt !== undefined) {
-                response = await runChat(prompt);
+                response = await runChat(prompt, conversationHistory);
                 setRecentPrompt(prompt);
+                setPrevPrompts(prev => [...prev, prompt]);
             } else {
                 setPrevPrompts(prev => [...prev, input]);
                 setRecentPrompt(input);
-                response = await runChat(input);
+                response = await runChat(input, conversationHistory);
             }
         } catch (error) {
             console.error("Error in onSent:", error);
@@ -46,6 +48,14 @@ const ContextProvider = (props) => {
         let newResponse2 = newResponse;
         let newResponseFinal = newResponse2.split(" ");
         
+        // Save conversation to history
+        const currentPrompt = prompt !== undefined ? prompt : input;
+        setConversationHistory(prev => [...prev, {
+            prompt: currentPrompt,
+            response: response, // Save raw response for API context
+            formattedResponse: newResponse2 // Save formatted response for display
+        }]);
+        
         setLoading(false);
         setResultData("");
         
@@ -56,6 +66,16 @@ const ContextProvider = (props) => {
         setInput("");
     }
 
+    const loadConversation = (prompt) => {
+        const conversation = conversationHistory.find(conv => conv.prompt === prompt);
+        if (conversation) {
+            setRecentPrompt(conversation.prompt);
+            setResultData(conversation.formattedResponse || conversation.response);
+            setShowResult(true);
+            setLoading(false);
+        }
+    }
+
     const contextValue = {
         prevPrompts,
         setPrevPrompts,
@@ -63,10 +83,15 @@ const ContextProvider = (props) => {
         setRecentPrompt,
         recentPrompt,
         showResult,
+        setShowResult,
         loading,
+        setLoading,
         resultData,
+        setResultData,
         input,
-        setInput
+        setInput,
+        conversationHistory,
+        loadConversation
     };
 
     return (

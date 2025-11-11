@@ -12,12 +12,33 @@ const ai = new GoogleGenAI({
   apiKey: API_KEY
 });
 
-async function runChat(prompt) {
+async function runChat(prompt, conversationHistory = []) {
   try {
-    // Generate content using the new API format (matching documentation)
+    // Build conversation context from history
+    let contents = [];
+    
+    // Add previous conversation history
+    conversationHistory.forEach(conv => {
+      contents.push({
+        role: "user",
+        parts: [{ text: conv.prompt }]
+      });
+      contents.push({
+        role: "model", 
+        parts: [{ text: conv.response }]
+      });
+    });
+    
+    // Add current prompt
+    contents.push({
+      role: "user",
+      parts: [{ text: prompt }]
+    });
+
+    // Generate content with full conversation context
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
-      contents: prompt,
+      contents: contents,
     });
     
     return response.text;
