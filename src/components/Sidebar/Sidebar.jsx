@@ -13,9 +13,10 @@ const Sidebar = () =>{
                 <p>New Chat</p>
             </div>
             <div className="recent">
-                <p className="recent-title"></p>
-                <div className="recent-chats">
+                <p className="recent-title">Recent</p>
+                <div className="recent-entry">
                     <img src={assets.message_icon} alt="" />
+                    <p>React Chat</p>
                 </div>
             </div>
               </div>
