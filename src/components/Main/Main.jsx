@@ -33,7 +33,7 @@ const Main = () => {
                     />
                     <p>Gemini</p>
                 </div>
-                <img src={assets.sur} alt="" />
+                <img src={assets.user_icon} alt="User" />
             </div>
             <div className="main-container">
                 {!showResult ? (
@@ -71,7 +71,7 @@ const Main = () => {
                 ) : (
                     <div className="result">
                         <div className="result-title">
-                            <img src={assets.user_icon} alt="" />
+                            <img src={assets.user_icon} alt="User" />
                             <p>{recentPrompt}</p>
                         </div>
                         <div className="result-data">
