@@ -13,10 +13,26 @@ const Main = () => {
         input, 
         setInput 
     } = useContext(Context);
+
+    const toggleMobileMenu = () => {
+        // This will trigger the sidebar menu from the main component
+        const menuButton = document.querySelector('.sidebar .menu');
+        if (menuButton) {
+            menuButton.click();
+        }
+    };
     return (
         <div className="main">
             <div className="nav">
-                <p>Gemini</p>
+                <div className="nav-left">
+                    <img 
+                        className="mobile-menu-btn" 
+                        onClick={toggleMobileMenu} 
+                        src={assets.menu_icon} 
+                        alt="Menu" 
+                    />
+                    <p>Gemini</p>
+                </div>
                 <img src={assets.user_icon} alt="" />
             </div>
             <div className="main-container">

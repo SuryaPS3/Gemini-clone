@@ -5,6 +5,7 @@ import { Context } from '../../context/context.jsx';
 const Sidebar = () =>{
     //state variables 
     const [extended, setExtended] = useState(false);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const { prevPrompts, setRecentPrompt, setShowResult, setResultData, setLoading, loadConversation } = useContext(Context);
 
     const newChat = () => {
@@ -14,9 +15,19 @@ const Sidebar = () =>{
         setLoading(false);
     }
     return (
-        <div className="sidebar">
-            <div className="top">
-                <img onClick={() => setExtended(!extended)} className="menu" src={assets.menu_icon} alt="Logo" />
+        <>
+            {mobileMenuOpen && <div className="mobile-overlay" onClick={() => setMobileMenuOpen(false)}></div>}
+            <div className={`sidebar ${mobileMenuOpen ? 'mobile-open' : ''}`}>
+                <div className="top">
+                <img 
+                    onClick={() => {
+                        setExtended(!extended);
+                        setMobileMenuOpen(!mobileMenuOpen);
+                    }} 
+                    className="menu" 
+                    src={assets.menu_icon} 
+                    alt="Logo" 
+                />
             
             <div onClick={newChat} className="new-chat">
                 <img src={assets.plus_icon} alt="" />
@@ -57,6 +68,7 @@ const Sidebar = () =>{
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

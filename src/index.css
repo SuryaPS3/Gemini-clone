@@ -7,4 +7,12 @@
 #root{
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
+}
+
+/* Desktop layout */
+@media (min-width: 768px) {
+  #root {
+    flex-direction: row;
+  }
 }

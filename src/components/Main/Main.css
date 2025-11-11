@@ -3,6 +3,22 @@
     min-height: 100vh;
     padding-bottom:15vh;
     position: relative;
+    width: 100%;
+}
+
+/* Mobile adjustments */
+@media (max-width: 767px) {
+    .main {
+        padding-bottom: 20vh;
+        margin-left: 0;
+    }
+}
+
+/* Desktop layout */
+@media (min-width: 768px) {
+    .main {
+        margin-left: 0;
+    }
 }
 
 .main .nav{
@@ -12,6 +28,30 @@
     font-size: 22px;
     padding :20px;
     color:light greenyellow
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.mobile-menu-btn {
+    display: none;
+    width: 24px !important;
+    cursor: pointer;
+}
+
+/* Mobile navigation */
+@media (max-width: 767px) {
+    .main .nav {
+        padding: 15px;
+        font-size: 18px;
+    }
+    
+    .mobile-menu-btn {
+        display: block;
+    }
 }
 
 .main .nav img{
@@ -25,6 +65,14 @@
     margin: auto;
 }
 
+/* Mobile main container */
+@media (max-width: 767px) {
+    .main-container {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+}
+
 .main .greet{
     margin:50px 0px;
     font-size:56px;
@@ -33,9 +81,21 @@
     padding : 20px;
 }
 
+/* Mobile greeting */
+@media (max-width: 767px) {
+    .main .greet {
+        font-size: 32px;
+        margin: 30px 0px;
+        padding: 15px;
+        text-align: center;
+    }
+}
+
 .main .greet span{
     background:-webkit-linear-gradient(16deg, #6cc1ff, #fc4257);
+    background: linear-gradient(16deg, #6cc1ff, #fc4257);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -44,6 +104,15 @@
     grid-template-columns: repeat(auto-fill,minmax(180px,1fr));
     gap:15px;
     padding:20px;
+}
+
+/* Mobile cards */
+@media (max-width: 767px) {
+    .main .cards {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 10px;
+        padding: 15px;
+    }
 }
 
 .main .cards .card{
@@ -87,6 +156,15 @@
     padding : 0px 20px;
 }
 
+/* Mobile bottom section */
+@media (max-width: 767px) {
+    .main-bottom {
+        padding: 0px 15px;
+        left: 0;
+        right: 0;
+    }
+}
+
 .search-box{
     display:flex;
     align-items: center;
@@ -95,6 +173,14 @@
     padding:10px 20px;
     background-color: #f0f7fc;
     border-radius: 50px;
+}
+
+/* Mobile search box */
+@media (max-width: 767px) {
+    .search-box {
+        gap: 10px;
+        padding: 8px 15px;
+    }
 }
 
 .search-box img{
@@ -128,6 +214,14 @@
     padding:0px 5%;
     max-height : 70vh;
     overflow-y: scroll;
+}
+
+/* Mobile result */
+@media (max-width: 767px) {
+    .result {
+        padding: 0px 3%;
+        max-height: 60vh;
+    }
 }
 
 .result::-webkit-scrollbar{
