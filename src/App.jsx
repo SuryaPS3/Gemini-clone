@@ -1,14 +1,15 @@
 import { useState } from 'react'
+import Sidebar from './components/Sidebar/Sidebar.jsx'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import './App.css'
+
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      This is Surya's Gemini Clone Project from App function
+     <Sidebar />
     </>
   )
 }
