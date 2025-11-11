@@ -33,7 +33,7 @@ const Main = () => {
                     />
                     <p>Gemini</p>
                 </div>
-                <img src={assets.user_icon} alt="" />
+                <img src={assets.sur} alt="" />
             </div>
             <div className="main-container">
                 {!showResult ? (
