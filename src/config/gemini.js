@@ -1,30 +1,26 @@
-import dotenv from 'dotenv';
-import { GoogleGenerativeAI } from "@google/generative-ai";
-
-// Load environment variables from .env file
-dotenv.config({ path: './src/config/.env' });
+import { GoogleGenAI } from "@google/genai";
 
 // Get API key from environment variable
-const API_KEY = process.env.GEMINI_API_KEY;
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
 if (!API_KEY) {
-  throw new Error("GEMINI_API_KEY is not set in environment variables");
+  throw new Error("VITE_GEMINI_API_KEY is not set in environment variables");
 }
 
-// Initialize the Gemini AI client
-const genAI = new GoogleGenerativeAI(API_KEY);
+// The client gets the API key from the environment variable
+const ai = new GoogleGenAI({
+  apiKey: API_KEY
+});
 
 async function runChat(prompt) {
   try {
-    // Get the generative model
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-
-    // Generate content based on user prompt
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
+    // Generate content using the new API format (matching documentation)
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: prompt,
+    });
     
-    return text;
+    return response.text;
   } catch (error) {
     console.error("Error generating response:", error);
     throw error;
